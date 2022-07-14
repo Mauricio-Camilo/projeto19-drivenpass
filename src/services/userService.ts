@@ -1,9 +1,21 @@
 import bcrypt from 'bcrypt'; 
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 import * as userRepository from "./../repositories/userRepository.js";
+import { LoginRequestBody } from '../controllers/authController.js';
 
-export async function registerUser (name : string, email : string , password : string) {
+dotenv.config();
+
+
+export type UserData = Omit<userRepository.GetUserData, "id"|"createdAt">;
+
+export async function registerUser (user : UserData) {
+
+    const {name, email, password} = user;
 
     const checkEmail = await userRepository.findEmail(email);
+
+    console.log(checkEmail);
 
     if (checkEmail) {
         throw {
@@ -14,7 +26,7 @@ export async function registerUser (name : string, email : string , password : s
 
     const cryptedPassword = cryptPassword(password);
 
-    const saveUser = userRepository.registerUser(name, email, cryptedPassword);
+    const saveUser = userRepository.registerUser(user);
 }
 
 export function cryptPassword (password : string) {
@@ -23,7 +35,9 @@ export function cryptPassword (password : string) {
     return cryptedPassword;
 }
 
-export async function signIn (email : string , password : string) {
+export async function signIn (login : LoginRequestBody) {
+
+    const { email , password } = login
 
     const user = await userRepository.findEmail(email);
 
@@ -41,6 +55,8 @@ export async function signIn (email : string , password : string) {
         }
     }
 
-    
+    const token = jwt.sign({ id : user.id }, process.env.SECRET, { expiresIn: 30000 });
+
+    await userRepository.registerToken(user.id,token);
 
 }
