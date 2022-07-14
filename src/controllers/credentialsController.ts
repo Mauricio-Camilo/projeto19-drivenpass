@@ -22,3 +22,14 @@ export async function getCredentials (req: Request, res: Response) {
 
     res.send(credentials);
 }
+
+export async function deleteCredentials (req: Request, res: Response) {
+
+    const {id : credentialId} = req.params;
+
+    const {user} = res.locals;
+
+    await credentialsService.deleteCredentials(parseInt(credentialId) , user.id);
+
+    res.send("deletar credenciais");
+}

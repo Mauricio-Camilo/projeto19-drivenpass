@@ -21,18 +21,23 @@ export async function createCredential (id, title, url, name, password) {
 
 export async function searchCredentials (paramsId : number, userId : number) {
 
-    if (paramsId !== userId) {
-        throw {
-            name: "notAuthorized",
-            message: "Invalid id"
-        }
-    }
+    const checkId = await checkUserId(paramsId, userId);
 
     const credentials = await credentialRepository.getCredentials(userId);
 
     const credentialsDecryptedPassword = decryptPasswords(credentials);
 
     return credentialsDecryptedPassword;
+}
+
+export async function checkUserId (paramsId : number, userId : number) {
+
+    if (paramsId !== userId) {
+         throw {
+            name: "notAuthorized",
+            message: "Invalid id"
+        }
+    }
 }
 
 export async function decryptPasswords (credentials) {
@@ -45,4 +50,27 @@ export async function decryptPasswords (credentials) {
        )
     })
     return newCredentials;
+}
+
+export async function deleteCredentials (paramsId : number, userId : number) {
+
+    const credential = await credentialRepository.getCredentialById(paramsId);
+
+    if (!credential) {
+        throw {
+            name: "notFound",
+            message: "Credential not found"
+        }
+    }
+
+    console.log(credential.userId, userId);
+
+    if (credential.userId !== userId) {
+        throw {
+            name: "notAuthorized",
+            message: "Credential not belong to user"
+        }
+    }
+
+    await credentialRepository.deleteCredentials(credential.id);
 }

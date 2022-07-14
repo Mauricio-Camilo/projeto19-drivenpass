@@ -18,3 +18,16 @@ export async function getCredentials (id : number) {
         `SELECT * FROM credentials WHERE "userId" = $1`, [id]);
     return credentials.rows;
 }
+
+export async function getCredentialById (id : number) {
+    const credential = await db.query (
+        `SELECT * FROM credentials WHERE "id" = $1`, [id]);
+    return credential.rows[0];
+}
+
+export async function deleteCredentials (id : number) {
+    console.log(id);
+    await db.query (
+        `DELETE FROM credentials WHERE id=$1`, [id]);
+}
+
