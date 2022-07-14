@@ -34,7 +34,7 @@ const { authorization } = req.headers;
         }
     }
 
-    res.locals.user = user;
+    res.locals.id = user.rows[0].id;
      
     next();
     
