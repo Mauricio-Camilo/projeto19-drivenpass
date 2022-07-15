@@ -7,5 +7,4 @@ const signUpSchema = joi.object<CreateUserData>({
   password: joi.string().required().pattern(/^[a-zA-Z0-9]{10,}$/)
 });
 
-
 export default signUpSchema;

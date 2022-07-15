@@ -58,6 +58,7 @@ export async function decryptPasswords (credentials) {
 
 export async function deleteCredentials (paramsId : number, userId : number) {
 
+
     const credential = await credentialRepository.getCredentialById(paramsId);
 
     if (!credential) {
@@ -67,7 +68,7 @@ export async function deleteCredentials (paramsId : number, userId : number) {
         }
     }
 
-    if (credential.userId !== userId) {
+    if (credential.userId !== paramsId) {
         throw {
             name: "notAuthorized",
             message: "Credential not belong to user"

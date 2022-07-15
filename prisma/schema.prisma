@@ -55,7 +55,8 @@ model Card {
   userId   Int
   title    String @unique
   name     String
-  securityCode Int
+  number   String
+  securityCode String
   expirationDate String
   password  String
   isVirtual Boolean
@@ -75,7 +76,7 @@ model Wifi {
 }
 
 enum CardTypes {
-  Credito
-  Debito
-  Ambos
+  credito
+  debito
+  ambos
 }
