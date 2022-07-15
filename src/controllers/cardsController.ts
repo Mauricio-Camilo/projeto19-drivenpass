@@ -16,24 +16,24 @@ export async function createCard(req: Request, res: Response) {
     res.status(201).send("Rota de cards ativada");
 }   
 
-// export async function getNotes (req: Request, res: Response) {
+export async function getCards (req: Request, res: Response) {
 
-//     const {id : paramsId} = req.params;
+    const {id : paramsId} = req.params;
 
-//     const {user} = res.locals;
+    const {user} = res.locals;
 
-//     const notes = await notesService.searchNotes(parseInt(paramsId), user.id);
+    const cards = await cardsService.searchCards(parseInt(paramsId), user.id);
 
-//     res.send(notes);
-// }
+    res.send(cards);
+}
 
-// export async function deleteNotes (req: Request, res: Response) {
+export async function deleteCredentials (req: Request, res: Response) {
 
-//     const {id : credentialId} = req.params;
+    // const {id : credentialId} = req.params;
 
-//     const {user} = res.locals;
+    // const {user} = res.locals;
 
-//     await notesService.deleteNotes(parseInt(credentialId) , user.id);
+    // await cardsService.deleteCredentials(parseInt(credentialId) , user.id);
 
-//     res.sendStatus(200);
-// }
+    // res.sendStatus(200);
+}

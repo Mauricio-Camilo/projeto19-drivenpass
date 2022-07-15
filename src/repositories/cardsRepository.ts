@@ -18,7 +18,6 @@ export async function getCards (userId : number) {
 }
 
 export async function getCardById (id : number) {
-
     const card = await prisma.card.findMany({where : {id}});
     return card[0];
 }
