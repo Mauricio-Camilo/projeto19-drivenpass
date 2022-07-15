@@ -58,21 +58,21 @@ export async function decryptPasswords (cards) {
 
 export async function deleteCard (paramsId : number, userId : number) {
 
-    // const credential = await credentialRepository.getCredentialById(paramsId);
+    const card = await cardsRepository.getCardById(paramsId);
 
-    // if (!credential) {
-    //     throw {
-    //         name: "notFound",
-    //         message: "Credential not found"
-    //     }
-    // }
+    if (!card) {
+        throw {
+            name: "notFound",
+            message: "card not found"
+        }
+    }
 
-    // if (credential.userId !== paramsId) {
-    //     throw {
-    //         name: "notAuthorized",
-    //         message: "Credential not belong to user"
-    //     }
-    // }
+    if (card.userId !== userId) {
+        throw {
+            name: "notAuthorized",
+            message: "card not belong to user"
+        }
+    }
 
-    // await credentialRepository.deletecards(credential.id);
+    await cardsRepository.deleteCards(card.id);
 }

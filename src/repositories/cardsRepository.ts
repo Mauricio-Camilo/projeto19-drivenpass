@@ -1,7 +1,5 @@
 import prisma from "../config/database.js";
 import { CreateCardData } from "../services/cardsService.js";
-import { Card } from '@prisma/client';
-
 
 export async function checkTitleCard (title : string) {
     const checkTitle =  prisma.card.findUnique({where : {title}})

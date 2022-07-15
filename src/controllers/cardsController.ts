@@ -27,13 +27,13 @@ export async function getCards (req: Request, res: Response) {
     res.send(cards);
 }
 
-export async function deleteCredentials (req: Request, res: Response) {
+export async function deleteCard (req: Request, res: Response) {
 
-    // const {id : credentialId} = req.params;
+    const {id : credentialId} = req.params;
 
-    // const {user} = res.locals;
+    const {user} = res.locals;
 
-    // await cardsService.deleteCredentials(parseInt(credentialId) , user.id);
+    await cardsService.deleteCard(parseInt(credentialId) , user.id);
 
-    // res.sendStatus(200);
+    res.sendStatus(200);
 }
