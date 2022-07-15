@@ -1,21 +1,22 @@
-import bcrypt from 'bcrypt'; 
+import bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import * as userRepository from "./../repositories/userRepository.js";
-import { LoginRequestBody } from '../controllers/authController.js';
+import { User } from "@prisma/client";
+import { Session } from "@prisma/client";
+
 
 dotenv.config();
 
+export type CreateUserData = Omit<User, "id"|"createdAt">;
+export type CreateLoginData = Omit<User, "id"|"name"|"createdAt">;
+export type CreateSessionData = Omit<Session, "id"|"createdAt">;
 
-export type UserData = Omit<userRepository.GetUserData, "id"|"createdAt">;
-
-export async function registerUser (user : UserData) {
+export async function registerUser (user : CreateUserData) {
 
     const {name, email, password} = user;
 
     const checkEmail = await userRepository.findEmail(email);
-
-    console.log(checkEmail);
 
     if (checkEmail) {
         throw {
@@ -26,7 +27,7 @@ export async function registerUser (user : UserData) {
 
     const cryptedPassword = cryptPassword(password);
 
-    const saveUser = userRepository.registerUser(user);
+    await userRepository.registerUser({...user, password : cryptedPassword});
 }
 
 export function cryptPassword (password : string) {
@@ -35,7 +36,7 @@ export function cryptPassword (password : string) {
     return cryptedPassword;
 }
 
-export async function signIn (login : LoginRequestBody) {
+export async function signIn (login : CreateLoginData) {
 
     const { email , password } = login
 
@@ -57,6 +58,13 @@ export async function signIn (login : LoginRequestBody) {
 
     const token = jwt.sign({ id : user.id }, process.env.SECRET, { expiresIn: 30000 });
 
-    await userRepository.registerToken(user.id,token);
+    console.log(token);
+
+    const createToken : CreateSessionData = {
+        userId : user.id,
+        token
+    }
+
+    await userRepository.registerToken(createToken);
 
 }
