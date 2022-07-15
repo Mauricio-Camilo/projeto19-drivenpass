@@ -12,7 +12,7 @@ export async function createNotes(req: Request, res: Response) {
     await notesService.createNote({userId, title, note});
 
     res.status(201).send("Rota de notas ativada");
-}
+}   
 
 export async function getNotes (req: Request, res: Response) {
 
@@ -25,13 +25,13 @@ export async function getNotes (req: Request, res: Response) {
     res.send(notes);
 }
 
-// export async function deleteCredentials (req: Request, res: Response) {
+export async function deleteNotes (req: Request, res: Response) {
 
-//     const {id : credentialId} = req.params;
+    const {id : credentialId} = req.params;
 
-//     const {user} = res.locals;
+    const {user} = res.locals;
 
-//     await credentialsService.deleteCredentials(parseInt(credentialId) , user.id);
+    await notesService.deleteNotes(parseInt(credentialId) , user.id);
 
-//     res.status(200);
-// }
+    res.sendStatus(200);
+}

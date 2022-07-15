@@ -17,12 +17,12 @@ export async function getNotes (userId : number) {
     return notes;
 }
 
-// export async function getCredentialById (id : number) {
+export async function getNoteById (id : number) {
 
-//     const credential = await prisma.credential.findMany({where : {id}});
-//     return credential[0];
-// }
+    const note = await prisma.note.findMany({where : {id}});
+    return note[0];
+}
 
-// export async function deleteCredentials (id : number) {
-//     await prisma.credential.delete({where : {id}});
-// }
+export async function deleteNotes (id : number) {
+    await prisma.note.delete({where : {id}});
+}

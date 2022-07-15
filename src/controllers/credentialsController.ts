@@ -33,5 +33,5 @@ export async function deleteCredentials (req: Request, res: Response) {
 
     await credentialsService.deleteCredentials(parseInt(credentialId) , user.id);
 
-    res.status(200);
+    res.sendStatus(200);
 }

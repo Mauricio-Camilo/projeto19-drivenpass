@@ -37,23 +37,23 @@ export async function checkUserId (paramsId : number, userId : number) {
     }
 }
 
-// export async function deleteNotes (paramsId : number, userId : number) {
+export async function deleteNotes (paramsId : number, userId : number) {
 
-//     const credential = await credentialRepository.getCredentialById(paramsId);
+    const note = await notesRepository.getNoteById(paramsId);
 
-//     if (!credential) {
-//         throw {
-//             name: "notFound",
-//             message: "Credential not found"
-//         }
-//     }
+    if (!note) {
+        throw {
+            name: "notFound",
+            message: "Note not found"
+        }
+    }
 
-//     if (credential.userId !== userId) {
-//         throw {
-//             name: "notAuthorized",
-//             message: "Credential not belong to user"
-//         }
-//     }
+    if (note.userId !== userId) {
+        throw {
+            name: "notAuthorized",
+            message: "Note not belong to user"
+        }
+    }
 
-//     await credentialRepository.deleteCredentials(credential.id);
-// }
+    await notesRepository.deleteNotes(note.id);
+}
