@@ -25,13 +25,13 @@ export async function getWifis (req: Request, res: Response) {
     res.send(wifis);
 }
 
-// export async function deleteWifi (req: Request, res: Response) {
+export async function deleteWifi (req: Request, res: Response) {
 
-//     const {id : credentialId} = req.params;
+    const {id : wifiId} = req.params;
 
-//     const {user} = res.locals;
+    const {user} = res.locals;
 
-//     await notesService.deleteNotes(parseInt(credentialId) , user.id);
+    await wifisService.deleteWifis(parseInt(wifiId) , user.id);
 
-//     res.sendStatus(200);
-// }
+    res.sendStatus(200);
+}

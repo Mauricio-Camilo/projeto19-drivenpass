@@ -54,23 +54,23 @@ export async function checkUserId (paramsId : number, userId : number) {
     }
 }
 
-// export async function deleteNotes (paramsId : number, userId : number) {
+export async function deleteWifis (paramsId : number, userId : number) {
 
-//     const note = await notesRepository.getNoteById(paramsId);
+    const wifi = await wifisRepository.getWifiById(paramsId);
 
-//     if (!note) {
-//         throw {
-//             name: "notFound",
-//             message: "Note not found"
-//         }
-//     }
+    if (!wifi) {
+        throw {
+            name: "notFound",
+            message: "wifi not found"
+        }
+    }
 
-//     if (note.userId !== userId) {
-//         throw {
-//             name: "notAuthorized",
-//             message: "Note not belong to user"
-//         }
-//     }
+    if (wifi.userId !== userId) {
+        throw {
+            name: "notAuthorized",
+            message: "wifi not belong to user"
+        }
+    }
 
-//     await notesRepository.deleteNotes(note.id);
-// }
+    await wifisRepository.deleteWifi(wifi.id);
+}

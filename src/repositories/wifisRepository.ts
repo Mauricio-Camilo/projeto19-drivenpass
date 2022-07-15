@@ -23,6 +23,6 @@ export async function getWifiById (id : number) {
     return note[0];
 }
 
-export async function deleteNotes (id : number) {
+export async function deleteWifi (id : number) {
     await prisma.wifi.delete({where : {id}});
 }
