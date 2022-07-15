@@ -1,6 +1,9 @@
 import joi from 'joi';
+import { Card } from '@prisma/client';
 
-const cardSchema = joi.object({
+type CreateCardData = Omit<Card,"id"|"userId">
+
+const cardSchema = joi.object<CreateCardData>({
   title: joi.string().required(),
   name: joi.string().required(),
   number: joi.string().pattern(/^[0-9]{4}\ [0-9]{4}\ [0-9]{4}\ [0-9]{4}$/),
