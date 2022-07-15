@@ -1,11 +1,13 @@
 import joi from 'joi';
+import { Credential } from '@prisma/client';
 
-const credentialsSchema = joi.object({
+type CreateCredentialData = Omit<Credential,"id"|"userId">
+
+const credentialsSchema = joi.object<CreateCredentialData>({
   title: joi.string().required(),
   url: joi.string().uri(),
   name: joi.string().required(),
   password: joi.string().required()
 });
-
 
 export default credentialsSchema;

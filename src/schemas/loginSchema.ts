@@ -1,7 +1,7 @@
 import joi from 'joi';
+import { CreateLoginData } from '../services/userService';
 
-//FAZER A TIPAGEM DO JOI
-const loginSchema = joi.object({
+const loginSchema = joi.object<CreateLoginData>({
   email: joi.string().email().required(),
   password: joi.string().required().pattern(/^[a-zA-Z0-9]{10,}$/)
 });

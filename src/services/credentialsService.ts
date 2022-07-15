@@ -2,11 +2,15 @@ import Cryptr from 'cryptr';
 
 import * as credentialRepository from "./../repositories/credentialsRepository.js";
 
-export async function createCredential (id, title, url, name, password) {
+import { Credential } from '@prisma/client';
 
-    const checkTitle = await credentialRepository.checkTitleCredential(title);
+export type CreateCredentialData = Omit<Credential,"id">
 
-    if (checkTitle !== 0) {
+export async function createCredential (credentials : CreateCredentialData) {
+
+    const checkTitle = await credentialRepository.checkTitleCredential(credentials.title);
+
+    if (checkTitle) {
         throw {
             name: "alreadyExists",
             message: "Title already exists"
@@ -14,9 +18,9 @@ export async function createCredential (id, title, url, name, password) {
     }
 
     const crypt = new Cryptr("password");
-    const encryptedPassword = crypt.encrypt(password);
+    const encryptedPassword = crypt.encrypt(credentials.password);
 
-    await credentialRepository.saveCredential(id, title, url, name, encryptedPassword);
+    credentialRepository.saveCredential({...credentials, password : encryptedPassword});
 }
 
 export async function searchCredentials (paramsId : number, userId : number) {
@@ -25,7 +29,7 @@ export async function searchCredentials (paramsId : number, userId : number) {
 
     const credentials = await credentialRepository.getCredentials(userId);
 
-    const credentialsDecryptedPassword = decryptPasswords(credentials);
+    const credentialsDecryptedPassword : Credential = await decryptPasswords(credentials);
 
     return credentialsDecryptedPassword;
 }
@@ -62,8 +66,6 @@ export async function deleteCredentials (paramsId : number, userId : number) {
             message: "Credential not found"
         }
     }
-
-    console.log(credential.userId, userId);
 
     if (credential.userId !== userId) {
         throw {

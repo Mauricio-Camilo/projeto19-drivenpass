@@ -5,7 +5,6 @@ import * as userRepository from "./../repositories/userRepository.js";
 import { User } from "@prisma/client";
 import { Session } from "@prisma/client";
 
-
 dotenv.config();
 
 export type CreateUserData = Omit<User, "id"|"createdAt">;
@@ -58,13 +57,10 @@ export async function signIn (login : CreateLoginData) {
 
     const token = jwt.sign({ id : user.id }, process.env.SECRET, { expiresIn: 30000 });
 
-    console.log(token);
-
     const createToken : CreateSessionData = {
         userId : user.id,
         token
     }
 
     await userRepository.registerToken(createToken);
-
 }

@@ -7,7 +7,9 @@ export async function createCredentials(req: Request, res: Response) {
 
     const {user} = res.locals;
 
-    await credentialsService.createCredential(user.id, title, url, name, password);
+    const {userId} = user;
+
+    await credentialsService.createCredential({userId, title, url, name, password});
 
     res.status(201).send("Rota de credenciais ativada");
 }
@@ -18,7 +20,7 @@ export async function getCredentials (req: Request, res: Response) {
 
     const {user} = res.locals;
 
-    const credentials = await credentialsService.searchCredentials(parseInt(paramsId), user.id);
+    const credentials  = await credentialsService.searchCredentials(parseInt(paramsId), user.id);
 
     res.send(credentials);
 }
@@ -31,5 +33,5 @@ export async function deleteCredentials (req: Request, res: Response) {
 
     await credentialsService.deleteCredentials(parseInt(credentialId) , user.id);
 
-    res.send("deletar credenciais");
+    res.status(200);
 }
