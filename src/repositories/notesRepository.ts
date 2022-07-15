@@ -1,6 +1,6 @@
 import prisma from "../config/database.js";
 import { CreateNoteData } from "../services/notesService.js";
-// import { Note } from '@prisma/client';
+import { Note } from '@prisma/client';
 
 
 export async function checkTitleNote (title : string) {
@@ -12,10 +12,10 @@ export async function saveNote (credentials : CreateNoteData) {
     await prisma.note.create({data : credentials});
 }
 
-// export async function getCredentials (userId : number) {
-//     const credentials = await prisma.credential.findMany({where : {userId}})
-//     return credentials;
-// }
+export async function getNotes (userId : number) {
+    const notes = await prisma.note.findMany({where : {userId}})
+    return notes;
+}
 
 // export async function getCredentialById (id : number) {
 

@@ -18,16 +18,14 @@ export async function createNote (note : CreateNoteData) {
     notesRepository.saveNote(note);
 }
 
-// export async function searchNotes (paramsId : number, userId : number) {
+export async function searchNotes (paramsId : number, userId : number) {
 
-//     const checkId = await checkUserId(paramsId, userId);
+    const checkId = await checkUserId(paramsId, userId);
 
-//     const credentials = await credentialRepository.getCredentials(userId);
+    const notes = await notesRepository.getNotes(userId);
 
-//     const credentialsDecryptedPassword : Credential = await decryptPasswords(credentials);
-
-//     return credentialsDecryptedPassword;
-// }
+    return notes;
+}
 
 export async function checkUserId (paramsId : number, userId : number) {
 
