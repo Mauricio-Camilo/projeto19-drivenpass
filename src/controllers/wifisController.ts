@@ -14,16 +14,16 @@ export async function createWifi(req: Request, res: Response) {
     res.status(201).send("Rota de wifis ativada");
 }   
 
-// export async function getWifis (req: Request, res: Response) {
+export async function getWifis (req: Request, res: Response) {
 
-//     const {id : paramsId} = req.params;
+    const {id : paramsId} = req.params;
 
-//     const {user} = res.locals;
+    const {user} = res.locals;
 
-//     const notes = await notesService.searchNotes(parseInt(paramsId), user.id);
+    const wifis = await wifisService.searchWifis(parseInt(paramsId), user.id);
 
-//     res.send(notes);
-// }
+    res.send(wifis);
+}
 
 // export async function deleteWifi (req: Request, res: Response) {
 

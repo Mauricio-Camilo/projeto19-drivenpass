@@ -13,8 +13,8 @@ export async function saveWifi (wifis : CreateWifiData) {
 }
 
 export async function getWifis (userId : number) {
-    const notes = await prisma.wifi.findMany({where : {userId}})
-    return notes;
+    const wifis = await prisma.wifi.findMany({where : {userId}})
+    return wifis;
 }
 
 export async function getWifiById (id : number) {

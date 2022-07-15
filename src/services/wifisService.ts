@@ -22,24 +22,37 @@ export async function createWifi (wifi : CreateWifiData) {
     wifisRepository.saveWifi({...wifi, password : encryptedPassword});
 }
 
-// export async function searchNotes (paramsId : number, userId : number) {
+export async function searchWifis (paramsId : number, userId : number) {
 
-//     const checkId = await checkUserId(paramsId, userId);
+    const checkId = await checkUserId(paramsId, userId);
 
-//     const notes = await notesRepository.getNotes(userId);
+    const wifis = await wifisRepository.getWifis(userId);
 
-//     return notes;
-// }
+    const wifisDecryptedPassword : Wifi = await decryptPasswords(wifis);
 
-// export async function checkUserId (paramsId : number, userId : number) {
+    return wifisDecryptedPassword;
+}
 
-//     if (paramsId !== userId) {
-//          throw {
-//             name: "notAuthorized",
-//             message: "Invalid id"
-//         }
-//     }
-// }
+export async function decryptPasswords (wifis) {
+
+    const crypt = new Cryptr("password");
+    wifis.forEach(wifi => {
+       const password = crypt.decrypt(wifi.password);
+       wifi.password = password; 
+    });
+
+    return wifis;
+}
+
+export async function checkUserId (paramsId : number, userId : number) {
+
+    if (paramsId !== userId) {
+         throw {
+            name: "notAuthorized",
+            message: "Invalid id"
+        }
+    }
+}
 
 // export async function deleteNotes (paramsId : number, userId : number) {
 
