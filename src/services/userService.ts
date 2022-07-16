@@ -61,6 +61,7 @@ export async function signIn (login : CreateLoginData) {
         userId : user.id,
         token
     }
-
     await userRepository.registerToken(createToken);
+
+    return token;
 }

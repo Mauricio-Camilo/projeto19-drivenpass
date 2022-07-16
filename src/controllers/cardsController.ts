@@ -13,7 +13,7 @@ export async function createCard(req: Request, res: Response) {
     await cardsService.registerCard({userId, title, name, number, securityCode,
         expirationDate, password, isVirtual, type});
 
-    res.status(201).send("Rota de cards ativada");
+    res.status(201).send("Card created");
 }   
 
 export async function getCards (req: Request, res: Response) {
@@ -35,5 +35,5 @@ export async function deleteCard (req: Request, res: Response) {
 
     await cardsService.deleteCard(parseInt(credentialId) , user.id);
 
-    res.sendStatus(200);
+    res.status(200).send("Card deleted");
 }

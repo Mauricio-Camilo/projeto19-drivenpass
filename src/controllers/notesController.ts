@@ -11,7 +11,7 @@ export async function createNotes(req: Request, res: Response) {
 
     await notesService.createNote({userId, title, note});
 
-    res.status(201).send("Rota de notas ativada");
+    res.status(201).send("Note created");
 }   
 
 export async function getNotes (req: Request, res: Response) {
@@ -33,5 +33,5 @@ export async function deleteNotes (req: Request, res: Response) {
 
     await notesService.deleteNotes(parseInt(credentialId) , user.id);
 
-    res.sendStatus(200);
+    res.status(200).send("Note deleted");
 }

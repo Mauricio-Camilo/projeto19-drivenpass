@@ -8,7 +8,7 @@ export async function createUser (req: Request, res: Response) {
 
     await userService.registerUser({name, email, password});
     
-    res.status(201).send("Rota de cadastro ativa")
+    res.status(201).send("User created")
 }
 
 export async function login (req: Request, res: Response) {
@@ -17,6 +17,6 @@ export async function login (req: Request, res: Response) {
 
     const token = await userService.signIn({email, password});
 
-    res.status(200).send("Rota de login ativa")
+    res.status(200).send(token);
 
 }

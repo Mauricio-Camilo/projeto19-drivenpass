@@ -11,7 +11,7 @@ export async function createWifi(req: Request, res: Response) {
 
     await wifisService.createWifi({userId, title, name, password});
 
-    res.status(201).send("Rota de wifis ativada");
+    res.status(201).send("Wifi created");
 }   
 
 export async function getWifis (req: Request, res: Response) {
@@ -33,5 +33,5 @@ export async function deleteWifi (req: Request, res: Response) {
 
     await wifisService.deleteWifis(parseInt(wifiId) , user.id);
 
-    res.sendStatus(200);
+    res.status(200).send("Wifi deleted");
 }

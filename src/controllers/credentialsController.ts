@@ -11,7 +11,7 @@ export async function createCredentials(req: Request, res: Response) {
 
     await credentialsService.createCredential({userId, title, url, name, password});
 
-    res.status(201).send("Rota de credenciais ativada");
+    res.status(201).send("Credential created");
 }
 
 export async function getCredentials (req: Request, res: Response) {
@@ -33,5 +33,5 @@ export async function deleteCredentials (req: Request, res: Response) {
 
     await credentialsService.deleteCredentials(parseInt(credentialId) , user.id);
 
-    res.sendStatus(200);
+    res.status(200).send("Credential deleted");
 }
