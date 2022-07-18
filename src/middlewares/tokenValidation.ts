@@ -22,7 +22,9 @@ const { authorization } = req.headers;
         }
     }
 
-    const user = await prisma.session.findUnique({where : {id : session.userId}})
+    const user = await prisma.user.findUnique({where : {id : session.userId}})
+
+    // console.log("Usuario: ", user);
 
     if (!user) {
         throw {

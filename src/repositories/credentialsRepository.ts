@@ -9,6 +9,7 @@ export async function checkTitleCredential (title : string) {
 }
 
 export async function saveCredential (credentials : CreateCredentialData) {
+    console.log("Chegou aqui");
     await prisma.credential.create({data : credentials});
 }
 

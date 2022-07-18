@@ -7,7 +7,7 @@ export async function createCredentials(req: Request, res: Response) {
 
     const {user} = res.locals;
 
-    const {userId} = user;
+    const userId = user.id;
 
     await credentialsService.createCredential({userId, title, url, name, password});
 

@@ -8,7 +8,7 @@ export async function createCard(req: Request, res: Response) {
 
     const {user} = res.locals;
 
-    const {userId} = user;
+    const userId = user.id;
 
     await cardsService.registerCard({userId, title, name, number, securityCode,
         expirationDate, password, isVirtual, type});

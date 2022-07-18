@@ -7,7 +7,7 @@ export async function createWifi(req: Request, res: Response) {
 
     const {user} = res.locals;
 
-    const {userId} = user;
+    const userId = user.id;
 
     await wifisService.createWifi({userId, title, name, password});
 

@@ -7,7 +7,7 @@ export async function createNotes(req: Request, res: Response) {
 
     const {user} = res.locals;
 
-    const {userId} = user;
+    const userId = user.id;
 
     await notesService.createNote({userId, title, note});
 

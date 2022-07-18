@@ -9,6 +9,7 @@ export async function checkTitleNote (title : string) {
 }
 
 export async function saveNote (credentials : CreateNoteData) {
+    console.log("Chegou aqui");
     await prisma.note.create({data : credentials});
 }
 
