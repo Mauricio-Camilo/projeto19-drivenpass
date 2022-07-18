@@ -1,7 +1,5 @@
 import prisma from "../config/database.js";
 import { CreateNoteData } from "../services/notesService.js";
-import { Note } from '@prisma/client';
-
 
 export async function checkTitleNote (title : string) {
     const checkTitle =  prisma.note.findUnique({where : {title}})
@@ -9,7 +7,6 @@ export async function checkTitleNote (title : string) {
 }
 
 export async function saveNote (credentials : CreateNoteData) {
-    console.log("Chegou aqui");
     await prisma.note.create({data : credentials});
 }
 

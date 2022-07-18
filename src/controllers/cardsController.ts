@@ -10,7 +10,7 @@ export async function createCard(req: Request, res: Response) {
 
     const userId = user.id;
 
-    await cardsService.registerCard({userId, title, name, number, securityCode,
+    await cardsService.registerCard({number, userId, title, name, securityCode,
         expirationDate, password, isVirtual, type});
 
     res.status(201).send("Card created");

@@ -1,7 +1,5 @@
 import prisma from "../config/database.js";
 import { CreateWifiData } from "../services/wifisService.js";
-import { Wifi } from '@prisma/client';
-
 
 export async function checkTitleWifi (title : string) {
     const checkTitle =  prisma.wifi.findUnique({where : {title}})
@@ -18,7 +16,6 @@ export async function getWifis (userId : number) {
 }
 
 export async function getWifiById (id : number) {
-
     const note = await prisma.wifi.findMany({where : {id}});
     return note[0];
 }

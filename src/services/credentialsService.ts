@@ -68,7 +68,7 @@ export async function deleteCredentials (paramsId : number, userId : number) {
         }
     }
 
-    if (credential.userId !== paramsId) {
+    if (credential.userId !== userId) {
         throw {
             name: "notAuthorized",
             message: "Credential not belong to user"

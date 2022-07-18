@@ -1,7 +1,5 @@
 import prisma from "../config/database.js";
 import { CreateCredentialData } from "../services/credentialsService.js";
-import { Credential } from '@prisma/client';
-
 
 export async function checkTitleCredential (title : string) {
     const checkTitle =  prisma.credential.findUnique({where : {title}})
@@ -9,7 +7,6 @@ export async function checkTitleCredential (title : string) {
 }
 
 export async function saveCredential (credentials : CreateCredentialData) {
-    console.log("Chegou aqui");
     await prisma.credential.create({data : credentials});
 }
 

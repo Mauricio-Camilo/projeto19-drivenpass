@@ -1,5 +1,4 @@
 import Cryptr from 'cryptr';
-
 import * as wifisRepository from "./../repositories/wifisRepository.js";
 import { Wifi } from '@prisma/client';
 

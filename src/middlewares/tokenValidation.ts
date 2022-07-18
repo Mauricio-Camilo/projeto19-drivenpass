@@ -24,8 +24,6 @@ const { authorization } = req.headers;
 
     const user = await prisma.user.findUnique({where : {id : session.userId}})
 
-    // console.log("Usuario: ", user);
-
     if (!user) {
         throw {
             name: "notFound",
@@ -36,5 +34,4 @@ const { authorization } = req.headers;
     res.locals.user = user;
      
     next();
-    
-    }
+}
