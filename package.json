@@ -5,9 +5,13 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon src/index.ts",
+    "dev": "nodemon src/server.ts",
     "build": "tsc",
-    "start": "node dist/app.js"
+    "test": "dotenv -e .env.test prisma migrate dev && dotenv -e .env.test prisma db seed && NODE_OPTIONS=--experimental-vm-modules dotenv -e .env.test jest -i",
+    "start": "node dist/server.js"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
   },
   "keywords": [],
   "author": "",
@@ -34,8 +38,13 @@
     "pg": "^8.7.3"
   },
   "devDependencies": {
+    "@types/jest": "^28.1.6",
+    "@types/supertest": "^2.0.12",
+    "jest": "^28.1.3",
     "nodemon": "^2.0.19",
     "prisma": "^4.0.0",
+    "supertest": "^6.2.4",
+    "ts-jest": "^28.0.7",
     "ts-node": "^10.8.2",
     "typescript": "^4.7.4"
   }
