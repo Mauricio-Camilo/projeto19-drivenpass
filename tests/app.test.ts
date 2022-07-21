@@ -10,18 +10,9 @@ const EMAIL = "teste1@email.com";
 const PASSWORD = "0123456789";
 const signup = {name: NAME, email: EMAIL, password: PASSWORD};
 const login = {email: EMAIL, password: PASSWORD};
-
-const TITLE = "notaTestedummy"
-const NOTE = "Texto da nota dummy";
-const USERID = 14
-const note = {userId: USERID, title: TITLE, note: NOTE};
-
-// beforeEach(async () => {
-//     await prisma.$executeRaw`DELETE FROM users WHERE email = 'teste1@email.com'`;
-// })
+const note = {userId: 1, title: "titulo da nota", name: "texto da nota"}
 
 describe("User tests suite", () => {
-
     it("given email and password, create user", async () => {
 
         await prisma.$executeRaw`DELETE FROM users WHERE email = 'teste1@email.com'`;
@@ -49,21 +40,12 @@ describe("User tests suite", () => {
 })
 
 describe("Notes tests suite", () => {
-
-    it("create note", async () => {
+    it("invalid token to create note", async () => {
 
         await prisma.$executeRaw`DELETE FROM notes`;
         const response = await supertest(app).post("/notes").send(note);
-        expect(response.statusCode).toBe(201);
-        // const user = await prisma.user.findUnique({where : {email: login.email}});
-
-        // expect(user.email).toBe(login.email);
+        expect(response.statusCode).toBe(404);
     });
-
-    it("given a note already in use, fail to create", async () => {
-      const response2 = await supertest(app).post("/notes").send(note);
-      expect (response2.statusCode).toBe(404);
-    })
 })
 
 afterAll(async () => {
